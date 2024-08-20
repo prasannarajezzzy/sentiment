@@ -14,6 +14,15 @@ def query(payload):
     response = requests.post(API_URL, headers=headers, json=payload)
     print(response.json(),"ssssssssssssss")
     return response.json()[0]
+
+@app.route("/get_response", methods=["POST"])
+def get_response():
+    user_message = request.json.get("message")
+    response = query({"inputs": user_message})
+    response_text = response[0]['label']
+    response_text = "The given response is :" + response_text
+    return jsonify({"response": response_text})
+
     
 @app.route('/')
 def homepage():
