@@ -12,8 +12,9 @@ def query(payload):
     print(response.json(),"ssssssssssssss")
     return response.json()[0]
 
-@app.route("/")
-def home():
+@app.route('/')
+def homepage():
+    the_time = datetime.now().strftime("%A, %d %b %Y %l:%M %p")
     return render_template("index.html")
 
 @app.route("/get_response", methods=["POST"])
