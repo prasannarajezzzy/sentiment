@@ -7,23 +7,12 @@ app = Flask(__name__)
 API_URL = "https://api-inference.huggingface.co/models/distilbert-base-uncased-finetuned-sst-2-english"
 headers = {"Authorization": f"Bearer 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"}
 
-def query(payload):
-    response = requests.post(API_URL, headers=headers, json=payload)
-    print(response.json(),"ssssssssssssss")
-    return response.json()[0]
 
 @app.route('/')
 def homepage():
     the_time = datetime.now().strftime("%A, %d %b %Y %l:%M %p")
     return render_template("index.html")
 
-@app.route("/get_response", methods=["POST"])
-def get_response():
-    user_message = request.json.get("message")
-    response = query({"inputs": user_message})
-    response_text = response[0]['label']
-    response_text = "The given response is :" + response_text
-    return jsonify({"response": response_text})
 
 if __name__ == "__main__":
     app.run(debug=True)
